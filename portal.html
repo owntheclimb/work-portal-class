@@ -285,17 +285,24 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
   <aside class="scene day enter" id="scene" aria-label="Now in Newark">
     <svg class="skyart" viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
-        <radialGradient id="sunHalo"><stop offset="0%" stop-color="#FFF3C4" stop-opacity=".9"/><stop offset="45%" stop-color="#FFE9A0" stop-opacity=".3"/><stop offset="100%" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient>
+        <radialGradient id="bloomG"><stop offset="0%" stop-color="#FFFDF2" stop-opacity=".95"/><stop offset="35%" stop-color="#FFEFB0" stop-opacity=".55"/><stop offset="100%" stop-color="#FFE9A0" stop-opacity="0"/></radialGradient>
         <radialGradient id="warmGrad"><stop offset="0%" stop-color="#FFB37A" stop-opacity=".8"/><stop offset="100%" stop-color="#FFB37A" stop-opacity="0"/></radialGradient>
-        <radialGradient id="sunCore" cx="38%" cy="36%"><stop offset="0%" stop-color="#FFFDF0"/><stop offset="55%" stop-color="#FFEFA8"/><stop offset="100%" stop-color="#FFD35E"/></radialGradient>
+        <radialGradient id="sunCoreG" cx="40%" cy="36%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="45%" stop-color="#FFF3BE"/><stop offset="100%" stop-color="#FFD35E"/></radialGradient>
+        <radialGradient id="cloudBody" cx="42%" cy="28%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="65%" stop-color="#F2F7FD"/><stop offset="100%" stop-color="#DDE9F6"/></radialGradient>
+        <radialGradient id="cloudDark"><stop offset="0%" stop-color="#B9CFE8"/><stop offset="100%" stop-color="#A9C2E0"/></radialGradient>
         <radialGradient id="moonHalo"><stop offset="0%" stop-color="#F8F3D9" stop-opacity=".65"/><stop offset="50%" stop-color="#F8F3D9" stop-opacity=".16"/><stop offset="100%" stop-color="#F8F3D9" stop-opacity="0"/></radialGradient>
         <radialGradient id="moonBody" cx="38%" cy="34%"><stop offset="0%" stop-color="#FCF6DC"/><stop offset="70%" stop-color="#EFE2AE"/><stop offset="100%" stop-color="#D9C689"/></radialGradient>
-        <linearGradient id="cloudShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D6E6F5"/></linearGradient>
+        <linearGradient id="cloudShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#CFE0F1"/></linearGradient>
         <linearGradient id="shootGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
         <clipPath id="moonclip"><circle cx="296" cy="62" r="28"/></clipPath>
+        <filter id="blur2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2"/></filter>
+        <filter id="blur4" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+        <filter id="fluffA" x="-30%" y="-40%" width="160%" height="190%"><feTurbulence type="fractalNoise" baseFrequency="0.014 0.03" numOctaves="3" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="16"/><feGaussianBlur stdDeviation="1"/></filter>
+        <filter id="fluffB" x="-30%" y="-40%" width="160%" height="190%"><feTurbulence type="fractalNoise" baseFrequency="0.016 0.034" numOctaves="3" seed="21" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="19"/><feGaussianBlur stdDeviation="1"/></filter>
+        <filter id="fluffC" x="-30%" y="-40%" width="160%" height="190%"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.04" numOctaves="2" seed="33" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="13"/><feGaussianBlur stdDeviation="1.4"/></filter>
+        <filter id="bankF" x="-15%" y="-40%" width="130%" height="190%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="14"/><feGaussianBlur stdDeviation="1.2"/></filter>
       </defs>
       <rect id="veil" x="0" y="0" width="400" height="250" fill="#C7D2DE" opacity="0" style="transition:opacity 1s linear"/>
-      <circle id="sunGhost" cx="300" cy="70" r="44" fill="url(#sunHalo)" opacity="0" style="transition:opacity 1s linear"/>
       <g id="stars" style="display:none">
         <circle class="tw" cx="30" cy="28" r="1.3" fill="#fff"/><circle class="tw" cx="80" cy="52" r="1" fill="#fff"/>
         <circle class="tw" cx="140" cy="22" r="1.5" fill="#fff"/><circle class="tw" cx="188" cy="60" r="1" fill="#fff"/>
@@ -311,36 +318,49 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
       </g>
       <g id="shootG"><line x1="40" y1="20" x2="8" y2="4" stroke="url(#shootGrad)" stroke-width="2" stroke-linecap="round"/><circle cx="40" cy="20" r="1.6" fill="#fff"/></g>
       <g id="sunWrap">
-        <circle id="warmHalo" cx="300" cy="62" r="60" fill="url(#warmGrad)"/>
-        <circle class="halopulse" cx="300" cy="62" r="54" fill="url(#sunHalo)"/>
-        <g id="raysB" stroke="#FFE9A0" stroke-width="1" opacity=".38">
-          <line x1="300" y1="20" x2="300" y2="30"/><line x1="300" y1="94" x2="300" y2="104"/>
-          <line x1="258" y1="62" x2="268" y2="62"/><line x1="332" y1="62" x2="342" y2="62"/>
-          <line x1="270" y1="32" x2="277" y2="39"/><line x1="323" y1="85" x2="330" y2="92"/>
-          <line x1="270" y1="92" x2="277" y2="85"/><line x1="323" y1="39" x2="330" y2="32"/>
+        <circle id="warmHalo" cx="300" cy="62" r="64" fill="url(#warmGrad)"/>
+        <g id="sunBloom" style="transition:opacity 1s linear">
+          <circle class="halopulse" cx="300" cy="62" r="76" fill="url(#bloomG)" opacity=".9"/>
+          <circle cx="300" cy="62" r="44" fill="url(#bloomG)"/>
         </g>
-        <g id="raysA" fill="#FFE07A" opacity=".6" stroke="#FFE07A" stroke-width="1.4" stroke-linejoin="round">
-          <path d="M298 38 L300 24 L302 38 Z"/><path d="M298 86 L300 100 L302 86 Z"/>
-          <path d="M276 60 L262 62 L276 64 Z"/><path d="M324 60 L338 62 L324 64 Z"/>
-          <path d="M283 46 L273 36 L286 43 Z"/><path d="M314 78 L324 88 L311 81 Z"/>
-          <path d="M283 78 L273 88 L286 81 Z"/><path d="M314 46 L324 36 L311 43 Z"/>
+        <g id="sunDetail">
+          <g id="raysB" opacity=".3" fill="#FFE9A0" filter="url(#blur4)">
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(22.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(67.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(112.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(157.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(202.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(247.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(292.5 300 62)"/>
+            <rect x="297" y="-4" width="6" height="34" rx="3" transform="rotate(337.5 300 62)"/>
+          </g>
+          <g id="raysA" opacity=".55" fill="#FFE9A0" filter="url(#blur2)">
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(45 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(90 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(135 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(180 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(225 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(270 300 62)"/>
+            <rect x="297.4" y="8" width="5.2" height="28" rx="2.6" transform="rotate(315 300 62)"/>
+          </g>
+          <circle cx="300" cy="62" r="18" fill="url(#sunCoreG)"/>
+          <circle cx="300" cy="62" r="18" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1" filter="url(#blur2)"/>
+          <path d="M291 53 a12.5 12.5 0 0 1 13 -4" stroke="rgba(255,255,255,.9)" stroke-width="2" fill="none" stroke-linecap="round"/>
         </g>
-        <circle cx="300" cy="62" r="19" fill="url(#sunCore)"/>
-        <path d="M290 52 a13 13 0 0 1 14 -4" stroke="rgba(255,255,255,.85)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <circle cx="306" cy="70" r="1.6" fill="rgba(214,164,60,.35)"/><circle cx="296" cy="68" r="1.1" fill="rgba(214,164,60,.28)"/>
       </g>
       <g id="moonWrap" style="display:none">
-        <circle cx="294" cy="64" r="50" fill="url(#moonHalo)"/>
+        <circle cx="294" cy="64" r="52" fill="url(#moonHalo)"/>
         <circle cx="296" cy="62" r="28" fill="url(#moonBody)"/>
-        <g clip-path="url(#moonclip)">
-          <circle cx="286" cy="52" r="4.6" fill="rgba(146,124,72,.34)"/><circle cx="285" cy="51" r="2.6" fill="rgba(255,250,228,.35)"/>
-          <circle cx="301" cy="47" r="3" fill="rgba(146,124,72,.3)"/><circle cx="300.4" cy="46.4" r="1.6" fill="rgba(255,250,228,.32)"/>
-          <circle cx="305" cy="70" r="5.2" fill="rgba(146,124,72,.32)"/><circle cx="304" cy="69" r="3" fill="rgba(255,250,228,.3)"/>
-          <circle cx="289" cy="72" r="3.2" fill="rgba(146,124,72,.3)"/><circle cx="288.4" cy="71.4" r="1.8" fill="rgba(255,250,228,.3)"/>
-          <circle cx="297" cy="59" r="2" fill="rgba(146,124,72,.26)"/>
-          <circle cx="307" cy="55" r="2.4" fill="rgba(146,124,72,.28)"/>
-          <circle cx="316" cy="56" r="30" fill="#141C3E" opacity=".45"/>
+        <g clip-path="url(#moonclip)" filter="url(#blur2)" opacity=".9">
+          <circle cx="286" cy="52" r="4.6" fill="rgba(146,124,72,.4)"/><circle cx="285" cy="51" r="2.6" fill="rgba(255,250,228,.4)"/>
+          <circle cx="301" cy="47" r="3" fill="rgba(146,124,72,.36)"/><circle cx="300.4" cy="46.4" r="1.6" fill="rgba(255,250,228,.38)"/>
+          <circle cx="305" cy="70" r="5.2" fill="rgba(146,124,72,.38)"/><circle cx="304" cy="69" r="3" fill="rgba(255,250,228,.36)"/>
+          <circle cx="289" cy="72" r="3.2" fill="rgba(146,124,72,.36)"/><circle cx="288.4" cy="71.4" r="1.8" fill="rgba(255,250,228,.36)"/>
+          <circle cx="297" cy="59" r="2" fill="rgba(146,124,72,.3)"/>
+          <circle cx="307" cy="55" r="2.4" fill="rgba(146,124,72,.32)"/>
         </g>
+        <g clip-path="url(#moonclip)"><circle cx="316" cy="56" r="30" fill="#141C3E" opacity=".45" filter="url(#blur2)"/></g>
       </g>
       <g id="rain" style="display:none">
         <line class="raindrop" x1="60" y1="40" x2="55" y2="56"/><line class="raindrop" x1="120" y1="20" x2="115" y2="36"/>
@@ -358,55 +378,60 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <g class="birdW"><g class="flap"><path d="M0 0 Q4 -5 8 0 Q12 -5 16 0"/></g></g>
         <g class="birdW2" opacity=".7"><g class="flap" style="animation-delay:-.7s"><path d="M0 0 Q3 -4 6 0 Q9 -4 12 0" transform="scale(.8)"/></g></g>
       </g>
-      <g class="driftC" opacity=".85">
+      <g class="driftC" opacity=".8">
         <g class="bobC">
-          <g transform="translate(40,88) scale(.55)">
-            <g fill="#C3D7EC"><ellipse cx="60" cy="30" rx="52" ry="13"/><circle cx="28" cy="24" r="14"/><circle cx="55" cy="16" r="19"/><circle cx="85" cy="22" r="15"/></g>
-            <g fill="#EDF4FC"><ellipse cx="58" cy="26" rx="48" ry="11"/><circle cx="27" cy="21" r="12"/><circle cx="54" cy="12" r="16"/><circle cx="83" cy="19" r="12"/></g>
+          <g transform="translate(40,84) scale(.55)">
+            <ellipse cx="60" cy="42" rx="52" ry="9" fill="#7FA1C6" opacity=".18" filter="url(#blur4)"/>
+            <g filter="url(#fluffC)" fill="url(#cloudBody)"><ellipse cx="58" cy="26" rx="50" ry="14"/><circle cx="28" cy="21" r="14"/><circle cx="54" cy="12" r="18"/><circle cx="83" cy="19" r="13"/></g>
           </g>
         </g>
       </g>
       <g class="driftA">
         <g class="bobA">
-          <g transform="translate(60,88) scale(.92)">
-            <g fill="#BFD4EA"><ellipse cx="75" cy="34" rx="70" ry="14"/><circle cx="30" cy="28" r="16"/><circle cx="60" cy="22" r="21"/><circle cx="95" cy="25" r="18"/><circle cx="122" cy="30" r="13"/></g>
-            <g fill="#E2EEFA"><ellipse cx="72" cy="29" rx="63" ry="13"/><circle cx="28" cy="23" r="15"/><circle cx="58" cy="15" r="20"/><circle cx="92" cy="19" r="17"/><circle cx="118" cy="26" r="12"/></g>
-            <g fill="#FFFFFF"><ellipse cx="70" cy="25" rx="56" ry="11"/><circle cx="30" cy="19" r="12"/><circle cx="58" cy="9" r="16"/><circle cx="90" cy="14" r="13"/><circle cx="114" cy="22" r="9"/></g>
+          <g transform="translate(60,86) scale(.92)">
+            <ellipse cx="74" cy="46" rx="66" ry="11" fill="#6E93BC" opacity=".2" filter="url(#blur4)"/>
+            <g filter="url(#fluffA)">
+              <g fill="url(#cloudBody)"><ellipse cx="72" cy="30" rx="66" ry="16"/><circle cx="30" cy="26" r="17"/><circle cx="58" cy="15" r="22"/><circle cx="92" cy="19" r="18"/><circle cx="120" cy="27" r="13"/><circle cx="75" cy="24" r="20"/></g>
+              <g fill="url(#cloudDark)" opacity=".5"><ellipse cx="74" cy="38" rx="56" ry="9"/><circle cx="42" cy="35" r="9"/><circle cx="102" cy="34" r="10"/></g>
+            </g>
+            <g filter="url(#blur2)" fill="#FFFFFF" opacity=".9"><circle cx="58" cy="8" r="11"/><circle cx="88" cy="12" r="8"/><circle cx="32" cy="18" r="7"/></g>
           </g>
         </g>
       </g>
       <g class="driftB" opacity=".95">
         <g class="bobB">
-          <g transform="translate(210,58) scale(.8)">
-            <g fill="#C7DAEE"><ellipse cx="55" cy="28" rx="50" ry="12"/><circle cx="24" cy="22" r="13"/><circle cx="50" cy="15" r="17"/><circle cx="78" cy="20" r="14"/></g>
-            <g fill="#EEF5FC"><ellipse cx="53" cy="24" rx="46" ry="10"/><circle cx="23" cy="19" r="11"/><circle cx="49" cy="11" r="14"/><circle cx="76" cy="17" r="11"/></g>
-            <g fill="#FFFFFF"><circle cx="24" cy="16" r="8"/><circle cx="49" cy="7" r="11"/><circle cx="74" cy="14" r="8"/></g>
+          <g transform="translate(210,54) scale(.8)">
+            <ellipse cx="52" cy="38" rx="48" ry="9" fill="#6E93BC" opacity=".16" filter="url(#blur4)"/>
+            <g filter="url(#fluffB)">
+              <g fill="url(#cloudBody)"><ellipse cx="55" cy="26" rx="50" ry="13"/><circle cx="24" cy="20" r="14"/><circle cx="50" cy="11" r="18"/><circle cx="78" cy="18" r="14"/></g>
+              <g fill="url(#cloudDark)" opacity=".45"><ellipse cx="54" cy="32" rx="42" ry="7"/></g>
+            </g>
+            <g filter="url(#blur2)" fill="#FFFFFF" opacity=".9"><circle cx="49" cy="4" r="9"/><circle cx="72" cy="12" r="6"/></g>
           </g>
         </g>
       </g>
-      <g id="cloudExtra" style="display:none" opacity=".9">
-        <g transform="translate(120,74) scale(.7)">
-          <g fill="#C7DAEE"><ellipse cx="55" cy="28" rx="50" ry="12"/><circle cx="26" cy="21" r="13"/><circle cx="52" cy="14" r="17"/><circle cx="80" cy="20" r="13"/></g>
-          <g fill="#F2F7FD"><ellipse cx="53" cy="24" rx="46" ry="10"/><circle cx="25" cy="18" r="11"/><circle cx="51" cy="10" r="14"/><circle cx="78" cy="17" r="10"/></g>
+      <g id="cloudExtra" style="display:none" opacity=".92">
+        <g transform="translate(110,70) scale(.7)">
+          <g filter="url(#fluffB)"><g fill="url(#cloudBody)"><ellipse cx="55" cy="26" rx="50" ry="13"/><circle cx="26" cy="19" r="14"/><circle cx="52" cy="10" r="17"/><circle cx="80" cy="18" r="13"/></g></g>
         </g>
       </g>
-      <g id="bankBack" fill="#B9CFE8" opacity=".85">
+      <g id="bankBack" filter="url(#fluffB)" fill="#B9CFE8" opacity=".85">
         <circle cx="24" cy="262" r="42"/><circle cx="82" cy="254" r="50"/><circle cx="150" cy="264" r="44"/>
         <circle cx="214" cy="252" r="54"/><circle cx="286" cy="262" r="46"/><circle cx="348" cy="253" r="52"/><circle cx="402" cy="264" r="42"/>
       </g>
-      <g fill="#DCE9F6">
+      <g fill="#DCE9F6" filter="url(#bankF)">
         <circle cx="0" cy="270" r="44"/><circle cx="58" cy="262" r="50"/><circle cx="126" cy="272" r="46"/>
         <circle cx="192" cy="260" r="54"/><circle cx="262" cy="270" r="48"/><circle cx="328" cy="261" r="52"/><circle cx="392" cy="272" r="44"/>
       </g>
       <g id="bankFront">
-        <g fill="url(#cloudShade)">
-          <circle cx="14" cy="286" r="46"/><circle cx="70" cy="277" r="52"/><circle cx="136" cy="286" r="47"/>
-          <circle cx="202" cy="274" r="56"/><circle cx="272" cy="285" r="49"/><circle cx="338" cy="275" r="54"/><circle cx="398" cy="286" r="46"/>
+        <g fill="url(#cloudShade)" filter="url(#bankF)">
+          <circle cx="14" cy="282" r="46"/><circle cx="70" cy="273" r="52"/><circle cx="136" cy="282" r="47"/>
+          <circle cx="202" cy="270" r="56"/><circle cx="272" cy="281" r="49"/><circle cx="338" cy="271" r="54"/><circle cx="398" cy="282" r="46"/>
         </g>
-        <g fill="rgba(255,255,255,.9)">
-          <circle cx="70" cy="262" r="14"/><circle cx="88" cy="268" r="10"/>
-          <circle cx="202" cy="258" r="15"/><circle cx="220" cy="265" r="10"/><circle cx="186" cy="266" r="9"/>
-          <circle cx="338" cy="260" r="13"/><circle cx="354" cy="267" r="9"/>
+        <g fill="rgba(255,255,255,.92)" filter="url(#blur2)">
+          <circle cx="70" cy="256" r="13"/><circle cx="88" cy="262" r="9"/>
+          <circle cx="202" cy="252" r="14"/><circle cx="220" cy="259" r="9"/><circle cx="186" cy="260" r="8"/>
+          <circle cx="338" cy="254" r="12"/><circle cx="354" cy="261" r="8"/>
         </g>
       </g>
     </svg>
@@ -570,9 +595,10 @@ function paintSky(){const st=skyState();const sc=$("#scene");
   const thick=cloudy||rain||snow;
   sc.classList.toggle("thick",thick);
   $("#stars").style.display=night||st==="dusk"?"":"none";
-  $("#sunWrap").style.display=(night||thick)?"none":"";
-  $("#sunGhost").style.opacity=(!night&&thick)?".55":"0";
-  $("#veil").style.opacity=thick?(night?".12":".26"):"0";
+  $("#sunWrap").style.display=night?"none":"";
+  $("#sunDetail").style.display=thick?"none":"";
+  $("#sunBloom").style.opacity=thick?".75":"1";
+  $("#veil").style.opacity=thick?(night?".12":".22"):"0";
   $("#moonWrap").style.display=night?"":"none";
   $("#rain").style.display=rain?"":"none";
   $("#snow").style.display=snow?"":"none";
