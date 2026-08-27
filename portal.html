@@ -74,9 +74,11 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .driftA{animation:driftA 115s linear infinite;animation-delay:-58s}
 .driftB{animation:driftB 82s linear infinite;animation-delay:-25s}
 .driftC{animation:driftC 140s linear infinite;animation-delay:-105s}
-@keyframes driftA{from{transform:translateX(-180px)}to{transform:translateX(560px)}}
-@keyframes driftB{from{transform:translateX(-130px)}to{transform:translateX(520px)}}
-@keyframes driftC{from{transform:translateX(-100px)}to{transform:translateX(490px)}}
+@keyframes driftA{from{transform:translateX(-165px)}to{transform:translateX(495px)}}
+@keyframes driftB{from{transform:translateX(-115px)}to{transform:translateX(485px)}}
+@keyframes driftC{from{transform:translateX(-90px)}to{transform:translateX(455px)}}
+.driftD{animation:driftD 96s linear infinite;animation-delay:-70s}
+@keyframes driftD{from{transform:translateX(-105px)}to{transform:translateX(465px)}}
 .bobA{animation:bob 14s ease-in-out infinite alternate}
 .bobB{animation:bob 11s ease-in-out infinite alternate;animation-delay:-4s}
 .bobC{animation:bob 17s ease-in-out infinite alternate;animation-delay:-8s}
@@ -92,8 +94,8 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .scene.dawn.wcloudy,.scene.dusk.wcloudy{background:linear-gradient(168deg,#464659 0%,#6E6478 55%,#9C8578 100%)}
 .scene.dawn.wrain,.scene.dusk.wrain,.scene.dawn.wsnow,.scene.dusk.wsnow{background:linear-gradient(168deg,#373A48 0%,#544D5E 55%,#7A6A63 100%)}
 .scene.night.wcloudy,.scene.night.wrain,.scene.night.wsnow{background:linear-gradient(168deg,#070A14 0%,#0E1424 55%,#192136 100%)}
-.wcloudy .driftA,.wcloudy .driftB,.wcloudy .driftC,.wcloudy #cloudExtra{filter:brightness(.8) saturate(.8)}
-.wrain .driftA,.wrain .driftB,.wrain .driftC,.wrain #cloudExtra{filter:brightness(.6) saturate(.7)}
+.wcloudy .driftA,.wcloudy .driftB,.wcloudy .driftC,.wcloudy .driftD,.wcloudy #cloudExtra{filter:brightness(.8) saturate(.8)}
+.wrain .driftA,.wrain .driftB,.wrain .driftC,.wrain .driftD,.wrain #cloudExtra{filter:brightness(.6) saturate(.7)}
 .wsnow .driftA,.wsnow .driftB,.wsnow .driftC,.wsnow #cloudExtra{filter:brightness(.94)}
 .night.wcloudy .driftA,.night.wcloudy .driftB,.night.wcloudy .driftC,.night.wcloudy #cloudExtra,.night.wrain .driftA,.night.wrain .driftB,.night.wrain .driftC{filter:brightness(.45)}
 .wcloudy #fog,.wrain #fog{opacity:.5}
@@ -110,7 +112,7 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .dawn #warmHalo,.dusk #warmHalo{opacity:.6}
 #sunWrap{transition:transform 1.2s linear}
 .dawn #sunWrap,.dusk #sunWrap{transform:translateY(32px)}
-.night .driftA,.night .driftB,.night .driftC{opacity:.55}
+.night .driftA,.night .driftB,.night .driftC,.night .driftD{opacity:.4}
 .raindrop{fill:rgba(255,255,255,.34);animation:rainfall 4.8s linear infinite}
 .raindrop:nth-child(2n){animation-delay:-2.4s;animation-duration:5.6s}
 .raindrop:nth-child(3n){animation-delay:-1.2s;animation-duration:4.2s;fill:rgba(255,255,255,.26)}
@@ -259,7 +261,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
 .pfoot{margin-top:28px;font-size:12px;color:var(--ink3);text-align:center}
 .pfoot a{color:var(--cyan)}
 @media (prefers-reduced-motion:reduce){
-  .tw,#raysA,#raysB,.halopulse,.driftA,.driftB,.driftC,.bobA,.bobB,.bobC,#mistA,#mistB,#moonWrap,.birdW,.birdW2,.flap,.raindrop,.flake,.doing-dot{animation:none}
+  .tw,#raysA,#raysB,.halopulse,.driftA,.driftB,.driftC,.driftD,.bobA,.bobB,.bobC,#mistA,#mistB,#moonWrap,.birdW,.birdW2,.flap,.raindrop,.flake,.doing-dot{animation:none}
   .enter,.toast{animation:none}
   *{transition:none!important}
 }
@@ -403,6 +405,13 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
               <g fill="url(#cloudDark)" opacity=".5"><ellipse cx="74" cy="38" rx="56" ry="9"/><circle cx="42" cy="35" r="9"/><circle cx="102" cy="34" r="10"/></g>
             </g>
             <g filter="url(#blur2)" fill="#FFFFFF" opacity=".9"><circle cx="58" cy="8" r="11"/><circle cx="88" cy="12" r="8"/><circle cx="32" cy="18" r="7"/></g>
+          </g>
+        </g>
+      </g>
+      <g class="driftD" opacity=".75">
+        <g class="bobB">
+          <g transform="translate(150,30) scale(.45)">
+            <g filter="url(#fluffC)" fill="url(#cloudBody)"><ellipse cx="55" cy="26" rx="48" ry="12"/><circle cx="26" cy="20" r="13"/><circle cx="52" cy="12" r="16"/><circle cx="78" cy="19" r="12"/></g>
           </g>
         </g>
       </g>
