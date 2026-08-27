@@ -255,6 +255,8 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <radialGradient id="moonHalo"><stop offset="0%" stop-color="#F8F3D9" stop-opacity=".7"/><stop offset="50%" stop-color="#F8F3D9" stop-opacity=".18"/><stop offset="100%" stop-color="#F8F3D9" stop-opacity="0"/></radialGradient>
         <linearGradient id="cloudShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#D6E6F5"/></linearGradient>
       </defs>
+      <rect id="veil" x="0" y="0" width="400" height="250" fill="#C7D2DE" opacity="0" style="transition:opacity 1s linear"/>
+      <circle id="sunGhost" cx="300" cy="70" r="44" fill="url(#sunHalo)" opacity="0" style="transition:opacity 1s linear"/>
       <g id="stars" style="display:none">
         <circle class="tw" cx="30" cy="28" r="1.3" fill="#fff"/><circle class="tw" cx="80" cy="52" r="1" fill="#fff"/>
         <circle class="tw" cx="140" cy="22" r="1.5" fill="#fff"/><circle class="tw" cx="188" cy="60" r="1" fill="#fff"/>
@@ -264,9 +266,9 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <circle class="tw" cx="205" cy="14" r="1" fill="#fff"/><circle class="tw" cx="305" cy="18" r="1.2" fill="#fff"/>
       </g>
       <g id="sunG" class="sunpulse">
-        <circle cx="316" cy="62" r="52" fill="url(#sunHalo)"/>
-        <circle cx="316" cy="62" r="21" fill="#FFE9A0"/>
-        <circle cx="316" cy="62" r="17" fill="#FFF2C2"/>
+        <circle cx="300" cy="64" r="52" fill="url(#sunHalo)"/>
+        <circle cx="300" cy="64" r="21" fill="#FFE9A0"/>
+        <circle cx="300" cy="64" r="17" fill="#FFF2C2"/>
       </g>
       <g id="moonG" style="display:none">
         <circle cx="316" cy="58" r="46" fill="url(#moonHalo)"/>
@@ -459,13 +461,15 @@ function paintSky(){const st=skyState();const sc=$("#scene");
   const cloudy=wx.ok&&wx.code>=2&&wx.code<=48;
   const rain=wx.ok&&((wx.code>=51&&wx.code<=67)||(wx.code>=80&&wx.code<=99));
   const snow=wx.ok&&wx.code>=71&&wx.code<=77;
+  const thick=cloudy||rain||snow;
   $("#stars").style.display=night||st==="dusk"?"":"none";
-  $("#sunG").style.display=night?"none":"";
-  $("#sunG").style.opacity=(cloudy||rain||snow)?".45":"1";
+  $("#sunG").style.display=(night||thick)?"none":"";
+  $("#sunGhost").style.opacity=(!night&&thick)?".55":"0";
+  $("#veil").style.opacity=thick?(night?".12":".26"):"0";
   $("#moonG").style.display=night?"":"none";
   $("#rain").style.display=rain?"":"none";
   $("#snow").style.display=snow?"":"none";
-  $("#cloudMid").style.display=(cloudy||rain||snow)?"":"none"}
+  $("#cloudMid").style.display=thick?"":"none"}
 const WXWORD={0:"clear",1:"mostly clear",2:"partly cloudy",3:"overcast",45:"foggy",48:"foggy",51:"drizzling",53:"drizzling",55:"drizzling",61:"raining",63:"raining",65:"raining heavily",71:"snowing",73:"snowing",75:"snowing heavily",80:"showery",81:"showery",82:"stormy",95:"stormy",96:"stormy",99:"stormy"};
 (async function(){try{
   const ctl=new AbortController();setTimeout(()=>ctl.abort(),4500);
