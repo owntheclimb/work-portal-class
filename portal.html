@@ -556,7 +556,7 @@ function renderTodo(){const g=$("#groups");g.innerHTML="";
         (it.due?'<span class="due">'+it.due+"</span>":"")+
         (isOver(it)?'<span class="overdue-tag">overdue</span>':"")+
         '<span class="owner">'+esc(it.owner)+'</span><span class="prio p'+(4-it.priority)+'"><i></i><i></i><i></i></span></div>'+
-       (view.dense?"":'<div class="cardbtns">'+(st!=="done"?'<button class="mini defer">Defer</button>':"")+'<button class="mini notesb">'+(it.notes?"Notes":"Add note")+'</button><button class="mini renameb">Rename</button><button class="mini del">Delete</button></div>')+
+       (view.dense?"":'<div class="cardbtns">'+(st!=="done"?'<button class="mini defer">Defer</button>':"")+'<button class="mini notesb">'+(it.notes?"Notes":"Note")+'</button><button class="mini renameb">Rename</button><button class="mini del">Delete</button></div>')+
        '<div class="notes" hidden></div>';
       wrap.appendChild(c)});
     sec.appendChild(wrap);g.appendChild(sec)});
