@@ -81,22 +81,31 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .bobB{animation:bob 11s ease-in-out infinite alternate;animation-delay:-4s}
 .bobC{animation:bob 17s ease-in-out infinite alternate;animation-delay:-8s}
 @keyframes bob{from{transform:translateY(0)}to{transform:translateY(-4px)}}
-#bankBack{animation:bankB 46s ease-in-out infinite alternate}
-#bankFront{animation:bankF 62s ease-in-out infinite alternate}
-@keyframes bankB{from{transform:translateX(-10px)}to{transform:translateX(10px)}}
-@keyframes bankF{from{transform:translateX(8px)}to{transform:translateX(-8px)}}
+#mistA{animation:mistgo 74s ease-in-out infinite alternate}
+#mistB{animation:mistgo 104s ease-in-out infinite alternate-reverse}
+@keyframes mistgo{from{transform:translateX(-52px)}to{transform:translateX(52px)}}
+.night #fog{opacity:.45}
+.night #mistA,.night #mistB{filter:brightness(.72)}
+.scene.day.wcloudy{background:linear-gradient(168deg,#55636F 0%,#7A8794 48%,#A9B4BE 100%)}
+.scene.day.wrain{background:linear-gradient(168deg,#3F4A55 0%,#5C6873 50%,#8A959E 100%)}
+.scene.day.wsnow{background:linear-gradient(168deg,#8C97A4 0%,#AEB9C4 50%,#D8DFE6 100%)}
+.scene.dawn.wcloudy,.scene.dusk.wcloudy{background:linear-gradient(168deg,#464659 0%,#6E6478 55%,#9C8578 100%)}
+.scene.dawn.wrain,.scene.dusk.wrain,.scene.dawn.wsnow,.scene.dusk.wsnow{background:linear-gradient(168deg,#373A48 0%,#544D5E 55%,#7A6A63 100%)}
+.scene.night.wcloudy,.scene.night.wrain,.scene.night.wsnow{background:linear-gradient(168deg,#070A14 0%,#0E1424 55%,#192136 100%)}
+.wcloudy .driftA,.wcloudy .driftB,.wcloudy .driftC,.wcloudy #cloudExtra{filter:brightness(.8) saturate(.8)}
+.wrain .driftA,.wrain .driftB,.wrain .driftC,.wrain #cloudExtra{filter:brightness(.6) saturate(.7)}
+.wsnow .driftA,.wsnow .driftB,.wsnow .driftC,.wsnow #cloudExtra{filter:brightness(.94)}
+.night.wcloudy .driftA,.night.wcloudy .driftB,.night.wcloudy .driftC,.night.wcloudy #cloudExtra,.night.wrain .driftA,.night.wrain .driftB,.night.wrain .driftC{filter:brightness(.45)}
+.wcloudy #fog,.wrain #fog{opacity:.5}
 #moonWrap{animation:bob 16s ease-in-out infinite alternate}
-#shootG{opacity:0;animation:shoot 27s linear infinite}
-@keyframes shoot{0%,90%{opacity:0;transform:translate(0,0)}92%{opacity:1;transform:translate(40px,21px)}96%{opacity:0;transform:translate(150px,80px)}100%{opacity:0;transform:translate(150px,80px)}}
 .birdW{animation:birdW 46s linear infinite}
 .birdW2{animation:birdW 60s linear infinite;animation-delay:-24s}
 @keyframes birdW{0%{transform:translate(-50px,34px)}50%{transform:translate(210px,6px)}100%{transform:translate(470px,28px)}}
 .flap{transform-box:fill-box;transform-origin:center;animation:flap 1.5s ease-in-out infinite alternate}
 @keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.5)}}
-#birds,#shootG{display:none}
+#birds{display:none}
 .day #birds{display:block}
 .thick #birds{display:none!important}
-.night #shootG{display:block}
 #warmHalo{opacity:0;transition:opacity 1.2s linear}
 .dawn #warmHalo,.dusk #warmHalo{opacity:.6}
 #sunWrap{transition:transform 1.2s linear}
@@ -245,7 +254,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
 .pfoot{margin-top:28px;font-size:12px;color:var(--ink3);text-align:center}
 .pfoot a{color:var(--cyan)}
 @media (prefers-reduced-motion:reduce){
-  .tw,#raysA,#raysB,.halopulse,.driftA,.driftB,.driftC,.bobA,.bobB,.bobC,#bankBack,#bankFront,#moonWrap,#shootG,.birdW,.birdW2,.flap,.raindrop,.flake,.doing-dot{animation:none}
+  .tw,#raysA,#raysB,.halopulse,.driftA,.driftB,.driftC,.bobA,.bobB,.bobC,#mistA,#mistB,#moonWrap,.birdW,.birdW2,.flap,.raindrop,.flake,.doing-dot{animation:none}
   .enter,.toast{animation:none}
   *{transition:none!important}
 }
@@ -294,6 +303,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <radialGradient id="moonBody" cx="38%" cy="34%"><stop offset="0%" stop-color="#FCF6DC"/><stop offset="70%" stop-color="#EFE2AE"/><stop offset="100%" stop-color="#D9C689"/></radialGradient>
         <linearGradient id="cloudShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#CFE0F1"/></linearGradient>
         <linearGradient id="shootGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#FFFFFF" stop-opacity=".95"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/></linearGradient>
+        <linearGradient id="fogG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="70%" stop-color="#F3F7FB" stop-opacity=".5"/><stop offset="100%" stop-color="#EDF3F9" stop-opacity=".78"/></linearGradient>
         <clipPath id="moonclip"><circle cx="296" cy="62" r="28"/></clipPath>
         <filter id="blur2" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2"/></filter>
         <filter id="blur4" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
@@ -303,20 +313,8 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <filter id="bankF" x="-15%" y="-40%" width="130%" height="190%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.05" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="14"/><feGaussianBlur stdDeviation="1.2"/></filter>
       </defs>
       <rect id="veil" x="0" y="0" width="400" height="250" fill="#C7D2DE" opacity="0" style="transition:opacity 1s linear"/>
-      <g id="stars" style="display:none">
-        <circle class="tw" cx="30" cy="28" r="1.3" fill="#fff"/><circle class="tw" cx="80" cy="52" r="1" fill="#fff"/>
-        <circle class="tw" cx="140" cy="22" r="1.5" fill="#fff"/><circle class="tw" cx="188" cy="60" r="1" fill="#fff"/>
-        <circle class="tw" cx="235" cy="30" r="1.2" fill="#fff"/><circle class="tw" cx="120" cy="78" r="1" fill="#fff"/>
-        <circle class="tw" cx="330" cy="96" r="1.1" fill="#fff"/><circle class="tw" cx="370" cy="26" r="1.3" fill="#fff"/>
-        <circle class="tw" cx="272" cy="88" r="1" fill="#fff"/><circle class="tw" cx="52" cy="86" r="1.1" fill="#fff"/>
-        <circle class="tw" cx="205" cy="14" r="1" fill="#fff"/><circle class="tw" cx="248" cy="70" r=".9" fill="#fff"/>
-        <circle class="tw" cx="98" cy="18" r=".9" fill="#fff"/><circle class="tw" cx="160" cy="94" r="1" fill="#fff"/>
-        <circle class="tw" cx="352" cy="120" r=".9" fill="#fff"/><circle class="tw" cx="18" cy="120" r="1" fill="#fff"/>
-        <g class="tw"><line x1="62" y1="34" x2="62" y2="42" stroke="#fff" stroke-width=".8"/><line x1="58" y1="38" x2="66" y2="38" stroke="#fff" stroke-width=".8"/></g>
-        <g class="tw"><line x1="222" y1="44" x2="222" y2="52" stroke="#fff" stroke-width=".8"/><line x1="218" y1="48" x2="226" y2="48" stroke="#fff" stroke-width=".8"/></g>
-        <g class="tw"><line x1="342" y1="58" x2="342" y2="66" stroke="#fff" stroke-width=".8"/><line x1="338" y1="62" x2="346" y2="62" stroke="#fff" stroke-width=".8"/></g>
-      </g>
-      <g id="shootG"><line x1="40" y1="20" x2="8" y2="4" stroke="url(#shootGrad)" stroke-width="2" stroke-linecap="round"/><circle cx="40" cy="20" r="1.6" fill="#fff"/></g>
+      <g id="stars" style="display:none"><ellipse cx="205" cy="62" rx="215" ry="30" fill="#FFFFFF" opacity=".05" filter="url(#blur4)" transform="rotate(-10 205 62)"/></g>
+      <g id="fx"></g>
       <g id="sunWrap">
         <circle id="warmHalo" cx="300" cy="62" r="64" fill="url(#warmGrad)"/>
         <g id="sunBloom" style="transition:opacity 1s linear">
@@ -350,18 +348,29 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         </g>
       </g>
       <g id="moonWrap" style="display:none">
-        <circle cx="294" cy="64" r="52" fill="url(#moonHalo)"/>
+        <circle cx="294" cy="64" r="54" fill="url(#moonHalo)"/>
+        <circle cx="296" cy="62" r="34" fill="none" stroke="rgba(248,243,217,.1)" stroke-width="2"/>
         <circle cx="296" cy="62" r="28" fill="url(#moonBody)"/>
-        <g clip-path="url(#moonclip)" filter="url(#blur2)" opacity=".9">
-          <circle cx="286" cy="52" r="4.6" fill="rgba(146,124,72,.4)"/><circle cx="285" cy="51" r="2.6" fill="rgba(255,250,228,.4)"/>
-          <circle cx="301" cy="47" r="3" fill="rgba(146,124,72,.36)"/><circle cx="300.4" cy="46.4" r="1.6" fill="rgba(255,250,228,.38)"/>
-          <circle cx="305" cy="70" r="5.2" fill="rgba(146,124,72,.38)"/><circle cx="304" cy="69" r="3" fill="rgba(255,250,228,.36)"/>
-          <circle cx="289" cy="72" r="3.2" fill="rgba(146,124,72,.36)"/><circle cx="288.4" cy="71.4" r="1.8" fill="rgba(255,250,228,.36)"/>
-          <circle cx="297" cy="59" r="2" fill="rgba(146,124,72,.3)"/>
-          <circle cx="307" cy="55" r="2.4" fill="rgba(146,124,72,.32)"/>
+        <g clip-path="url(#moonclip)">
+          <g filter="url(#blur2)" opacity=".85">
+            <ellipse cx="290" cy="57" rx="9" ry="6" fill="rgba(146,124,72,.2)"/>
+            <ellipse cx="303" cy="69" rx="7" ry="5" fill="rgba(146,124,72,.18)"/>
+            <ellipse cx="301" cy="49" rx="5" ry="4" fill="rgba(146,124,72,.16)"/>
+          </g>
+          <g filter="url(#blur2)">
+            <circle cx="286" cy="52" r="4.6" fill="rgba(146,124,72,.42)"/><circle cx="285" cy="51" r="2.6" fill="rgba(255,250,228,.42)"/>
+            <circle cx="301" cy="47" r="3" fill="rgba(146,124,72,.38)"/><circle cx="300.4" cy="46.4" r="1.6" fill="rgba(255,250,228,.4)"/>
+            <circle cx="305" cy="70" r="5.2" fill="rgba(146,124,72,.4)"/><circle cx="304" cy="69" r="3" fill="rgba(255,250,228,.38)"/>
+            <circle cx="289" cy="72" r="3.2" fill="rgba(146,124,72,.38)"/><circle cx="288.4" cy="71.4" r="1.8" fill="rgba(255,250,228,.38)"/>
+            <circle cx="297" cy="59" r="2" fill="rgba(146,124,72,.32)"/><circle cx="307" cy="55" r="2.4" fill="rgba(146,124,72,.34)"/>
+            <circle cx="292" cy="45" r="1" fill="rgba(146,124,72,.3)"/><circle cx="282" cy="62" r="1.2" fill="rgba(146,124,72,.3)"/>
+            <circle cx="296" cy="78" r="1.1" fill="rgba(146,124,72,.3)"/><circle cx="309" cy="63" r=".9" fill="rgba(146,124,72,.28)"/>
+          </g>
+          <circle cx="316" cy="56" r="30" fill="#141C3E" opacity=".5" filter="url(#blur2)"/>
+          <path d="M 280 47 A 28 28 0 0 1 299 34" stroke="rgba(255,252,238,.65)" stroke-width="1.6" fill="none" filter="url(#blur2)"/>
         </g>
-        <g clip-path="url(#moonclip)"><circle cx="316" cy="56" r="30" fill="#141C3E" opacity=".45" filter="url(#blur2)"/></g>
       </g>
+      <g id="moonBloom" style="display:none"><circle cx="296" cy="62" r="42" fill="url(#moonHalo)"/></g>
       <g id="rain" style="display:none">
         <line class="raindrop" x1="60" y1="40" x2="55" y2="56"/><line class="raindrop" x1="120" y1="20" x2="115" y2="36"/>
         <line class="raindrop" x1="180" y1="50" x2="175" y2="66"/><line class="raindrop" x1="240" y1="26" x2="235" y2="42"/>
@@ -415,25 +424,15 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
           <g filter="url(#fluffB)"><g fill="url(#cloudBody)"><ellipse cx="55" cy="26" rx="50" ry="13"/><circle cx="26" cy="19" r="14"/><circle cx="52" cy="10" r="17"/><circle cx="80" cy="18" r="13"/></g></g>
         </g>
       </g>
-      <g id="bankBack" filter="url(#fluffB)" fill="#B9CFE8" opacity=".85">
-        <circle cx="24" cy="262" r="42"/><circle cx="82" cy="254" r="50"/><circle cx="150" cy="264" r="44"/>
-        <circle cx="214" cy="252" r="54"/><circle cx="286" cy="262" r="46"/><circle cx="348" cy="253" r="52"/><circle cx="402" cy="264" r="42"/>
-      </g>
-      <g fill="#DCE9F6" filter="url(#bankF)">
-        <circle cx="0" cy="270" r="44"/><circle cx="58" cy="262" r="50"/><circle cx="126" cy="272" r="46"/>
-        <circle cx="192" cy="260" r="54"/><circle cx="262" cy="270" r="48"/><circle cx="328" cy="261" r="52"/><circle cx="392" cy="272" r="44"/>
-      </g>
-      <g id="bankFront">
-        <g fill="url(#cloudShade)" filter="url(#bankF)">
-          <circle cx="14" cy="282" r="46"/><circle cx="70" cy="273" r="52"/><circle cx="136" cy="282" r="47"/>
-          <circle cx="202" cy="270" r="56"/><circle cx="272" cy="281" r="49"/><circle cx="338" cy="271" r="54"/><circle cx="398" cy="282" r="46"/>
-        </g>
-        <g fill="rgba(255,255,255,.92)" filter="url(#blur2)">
-          <circle cx="70" cy="256" r="13"/><circle cx="88" cy="262" r="9"/>
-          <circle cx="202" cy="252" r="14"/><circle cx="220" cy="259" r="9"/><circle cx="186" cy="260" r="8"/>
-          <circle cx="338" cy="254" r="12"/><circle cx="354" cy="261" r="8"/>
-        </g>
-      </g>
+      <rect id="fog" x="0" y="178" width="400" height="72" fill="url(#fogG)"/>
+      <g id="mistB" opacity=".7"><g filter="url(#fluffB)" fill="#D6E4F3">
+        <ellipse cx="10" cy="266" rx="120" ry="26"/><ellipse cx="150" cy="272" rx="140" ry="28"/>
+        <ellipse cx="300" cy="264" rx="130" ry="26"/><ellipse cx="410" cy="270" rx="90" ry="22"/>
+      </g></g>
+      <g id="mistA" opacity=".92"><g filter="url(#bankF)">
+        <g fill="url(#cloudShade)"><ellipse cx="60" cy="254" rx="112" ry="26"/><ellipse cx="205" cy="262" rx="132" ry="30"/><ellipse cx="345" cy="252" rx="118" ry="26"/></g>
+        <g fill="rgba(255,255,255,.92)"><circle cx="88" cy="238" r="12"/><circle cx="214" cy="240" r="14"/><circle cx="332" cy="236" r="11"/></g>
+      </g></g>
     </svg>
     <div class="scene-body">
       <div class="scene-label">Operations &middot; Newark, NJ</div>
@@ -597,12 +596,14 @@ function paintSky(){const st=skyState();const sc=$("#scene");
   const snow=wx.ok&&wx.code>=71&&wx.code<=77;
   const thick=cloudy||rain||snow;
   sc.classList.toggle("thick",thick);
-  $("#stars").style.display=night||st==="dusk"?"":"none";
+  sc.classList.remove("wclear","wcloudy","wrain","wsnow");
+  sc.classList.add(rain?"wrain":snow?"wsnow":cloudy?"wcloudy":"wclear");
+  $("#stars").style.display=(night||st==="dusk")&&!thick?"":"none";
   $("#sunWrap").style.display=night?"none":"";
   $("#sunDetail").style.display=thick?"none":"";
-  $("#sunBloom").style.opacity=thick?".75":"1";
-  $("#veil").style.opacity=thick?(night?".12":".22"):"0";
-  $("#moonWrap").style.display=night?"":"none";
+  $("#sunBloom").style.opacity=rain?".22":thick?".4":"1";
+  $("#moonWrap").style.display=night&&!thick?"":"none";
+  $("#moonBloom").style.display=night&&thick?"":"none";
   $("#rain").style.display=rain?"":"none";
   $("#snow").style.display=snow?"":"none";
   $("#cloudExtra").style.display=thick?"":"none"}
@@ -634,6 +635,37 @@ setInterval(tick,1000);tick();
   const l=document.createElementNS("http://www.w3.org/2000/svg","line");
   l.setAttribute("x1",x1);l.setAttribute("y1",y1);l.setAttribute("x2",x2);l.setAttribute("y2",y2);
   l.setAttribute("stroke","rgba(22,24,29,.15)");l.setAttribute("stroke-width","1");g.appendChild(l)}})();
+(function(){const g=$("#stars");const NS="http://www.w3.org/2000/svg";
+  for(let i=0;i<46;i++){const c=document.createElementNS(NS,"circle");
+    c.setAttribute("cx",(6+Math.random()*388).toFixed(1));
+    c.setAttribute("cy",(6+Math.random()*150).toFixed(1));
+    c.setAttribute("r",((Math.random()<.12?1.4:.5)+Math.random()*.9).toFixed(2));
+    c.setAttribute("fill",["#FFFFFF","#FFF4D6","#DDE8FF"][Math.floor(Math.random()*3)]);
+    c.setAttribute("class","tw");
+    c.style.animationDuration=(2.4+Math.random()*3.8).toFixed(2)+"s";
+    c.style.animationDelay=(-Math.random()*6).toFixed(2)+"s";
+    c.style.opacity=(.35+Math.random()*.65).toFixed(2);
+    g.appendChild(c)}
+  for(let i=0;i<3;i++){const gl=document.createElementNS(NS,"g");gl.setAttribute("class","tw");
+    gl.style.animationDuration=(3+Math.random()*3).toFixed(2)+"s";gl.style.animationDelay=(-Math.random()*5).toFixed(2)+"s";
+    const x=20+Math.random()*360,y=12+Math.random()*120;
+    [[x,y-4,x,y+4],[x-4,y,x+4,y]].forEach(a=>{const l=document.createElementNS(NS,"line");
+      l.setAttribute("x1",a[0]);l.setAttribute("y1",a[1]);l.setAttribute("x2",a[2]);l.setAttribute("y2",a[3]);
+      l.setAttribute("stroke","#fff");l.setAttribute("stroke-width",".8");gl.appendChild(l)});
+    g.appendChild(gl)}})();
+(function(){if(REDUCED)return;const NS="http://www.w3.org/2000/svg";
+  function spawn(){const sc=document.getElementById("scene");
+    if(sc.classList.contains("night")&&!sc.classList.contains("thick")){
+      const fx=$("#fx");const x=60+Math.random()*300,y=10+Math.random()*70;
+      const dx=-(0.75+Math.random()*0.5),dy=0.4+Math.random()*0.3,len=24+Math.random()*20;
+      const l=document.createElementNS(NS,"line");
+      l.setAttribute("x1",x);l.setAttribute("y1",y);
+      l.setAttribute("x2",(x-dx*len).toFixed(1));l.setAttribute("y2",(y-dy*len).toFixed(1));
+      l.setAttribute("stroke","url(#shootGrad)");l.setAttribute("stroke-width","1.8");l.setAttribute("stroke-linecap","round");
+      fx.appendChild(l);
+      l.animate([{transform:"translate(0,0)",opacity:0},{opacity:1,offset:.12},{transform:"translate("+(dx*140).toFixed(0)+"px,"+(dy*140).toFixed(0)+"px)",opacity:0}],{duration:950,easing:"ease-out"}).onfinish=()=>l.remove()}
+    setTimeout(spawn,15000+Math.random()*45000)}
+  setTimeout(spawn,5000+Math.random()*9000)})();
 function countUp(el,to){if(REDUCED){el.textContent=to;return}
   const t0=performance.now();const dur=700;
   function f(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)}
