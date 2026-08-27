@@ -354,7 +354,6 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
       </g>
       <g id="moonWrap" style="display:none">
         <circle cx="294" cy="64" r="54" fill="url(#moonHalo)"/>
-        <circle cx="296" cy="62" r="34" fill="none" stroke="rgba(248,243,217,.1)" stroke-width="2"/>
         <circle cx="296" cy="62" r="28" fill="url(#moonBody)"/>
         <g clip-path="url(#moonclip)">
           <g filter="url(#blur2)" opacity=".85">
@@ -647,13 +646,15 @@ setInterval(tick,1000);tick();
     c.style.animationDelay=(-Math.random()*6).toFixed(2)+"s";
     c.style.opacity=(.35+Math.random()*.65).toFixed(2);
     g.appendChild(c)}
-  for(let i=0;i<3;i++){const gl=document.createElementNS(NS,"g");gl.setAttribute("class","tw");
-    gl.style.animationDuration=(3+Math.random()*3).toFixed(2)+"s";gl.style.animationDelay=(-Math.random()*5).toFixed(2)+"s";
-    const x=20+Math.random()*360,y=12+Math.random()*120;
-    [[x,y-4,x,y+4],[x-4,y,x+4,y]].forEach(a=>{const l=document.createElementNS(NS,"line");
-      l.setAttribute("x1",a[0]);l.setAttribute("y1",a[1]);l.setAttribute("x2",a[2]);l.setAttribute("y2",a[3]);
-      l.setAttribute("stroke","#fff");l.setAttribute("stroke-width",".8");gl.appendChild(l)});
-    g.appendChild(gl)}})();
+  for(let i=0;i<48;i++){const c=document.createElementNS(NS,"circle");
+    c.setAttribute("cx",(4+Math.random()*392).toFixed(1));
+    c.setAttribute("cy",(4+Math.random()*160).toFixed(1));
+    c.setAttribute("r",(0.25+Math.random()*0.4).toFixed(2));
+    c.setAttribute("fill","#FFFFFF");c.setAttribute("class","tw");
+    c.style.animationDuration=(3+Math.random()*4).toFixed(2)+"s";
+    c.style.animationDelay=(-Math.random()*7).toFixed(2)+"s";
+    c.style.opacity=(.2+Math.random()*.45).toFixed(2);
+    g.appendChild(c)}})();
 (function(){if(REDUCED)return;const NS="http://www.w3.org/2000/svg";
   function spawn(){const sc=document.getElementById("scene");
     if(sc.classList.contains("night")&&!sc.classList.contains("thick")){
