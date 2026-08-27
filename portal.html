@@ -109,7 +109,8 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .flake:nth-child(2n){animation-delay:-2.7s}.flake:nth-child(3n){animation-delay:-4.1s}
 @keyframes snowfall{from{transform:translateY(-20px)}to{transform:translateY(240px)}}}
 .scene-body *{text-shadow:0 1px 10px rgba(6,8,16,.75),0 0 2px rgba(6,8,16,.5)}
-.scene-body{position:relative;padding:18px 22px 16px;width:68%;background:linear-gradient(0deg,rgba(6,8,16,.34) 0%,rgba(6,8,16,.18) 60%,transparent 100%),linear-gradient(90deg,rgba(6,8,16,.62) 0%,rgba(6,8,16,.44) 72%,transparent 100%)}
+.scene::after{content:"";position:absolute;left:0;right:0;bottom:0;height:70px;background:linear-gradient(0deg,rgba(6,8,16,.30),transparent);pointer-events:none}
+.scene-body{position:relative;z-index:2;padding:18px 22px 16px;width:68%;background:linear-gradient(90deg,rgba(6,8,16,.62) 0%,rgba(6,8,16,.44) 72%,transparent 100%)}
 .scene-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.85}
 .clock{font-family:var(--serif);font-size:clamp(30px,3vw,40px);font-weight:500;line-height:1.15;font-variant-numeric:tabular-nums}
 .clock .sec{display:inline-block;width:2ch;font-size:.55em;vertical-align:.28em;opacity:.85}
