@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Vocabulary - Flip Cards</title>
+<style>
+:root{
+  --ivory:#FAF7F2; --ink:#16181D; --ink2:#4A4E57; --ink3:#8A8E98;
+  --cyan:#0E7490; --hair:rgba(22,24,29,.08);
+  --shadow:0 24px 50px rgba(2,4,8,.12); --shadow-sm:0 10px 24px rgba(2,4,8,.08);
+  --qo:cubic-bezier(0.25,1,0.5,1);
+  --serif:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --mono:ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;padding:0}
+body{background:var(--ivory);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;font-size:15px;line-height:1.5;overflow-x:hidden}
+.amb{position:fixed;inset:0;pointer-events:none;z-index:0}
+.amb-grid{background:
+  repeating-linear-gradient(0deg,rgba(22,24,29,.03) 0 1px,transparent 1px 72px),
+  repeating-linear-gradient(90deg,rgba(22,24,29,.03) 0 1px,transparent 1px 72px);
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 70%);
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 70%)}
+.amb-glow1{background:radial-gradient(560px 420px at 92% -4%,rgba(196,120,60,.10),transparent 70%)}
+.amb-glow2{background:radial-gradient(560px 460px at 4% 104%,rgba(96,150,196,.10),transparent 70%)}
+.shell{position:relative;z-index:1;max-width:1220px;margin:0 auto;padding:24px clamp(16px,3vw,36px) 64px}
+.sitenav{display:flex;gap:8px;align-items:center;margin:2px 0 22px;flex-wrap:wrap}
+.sitenav a{font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--ink3);padding:7px 14px;border-radius:999px;border:1px solid var(--hair)}
+.sitenav a.on{color:var(--ink);background:#fff;box-shadow:var(--shadow-sm)}
+.sitenav a:hover{color:var(--ink)}
+header.hero{margin-bottom:22px}
+.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3);margin:0 0 6px}
+h1{font-size:clamp(26px,3.4vw,40px);margin:0 0 8px;font-weight:650;letter-spacing:-.01em}
+h1 .signature{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--cyan)}
+.sub{color:var(--ink2);margin:0;max-width:640px}
+.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin:20px 0 22px}
+.cgroup{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fchip{font:inherit;font-size:12px;border:1px solid var(--hair);background:#fff;border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--ink2);transition:all .2s var(--qo)}
+.fchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+input[type=search]{font:inherit;font-size:13.5px;padding:8px 14px;border-radius:999px;border:1px solid var(--hair);background:#fff;width:190px;outline:none;transition:box-shadow .2s var(--qo)}
+input[type=search]:focus{box-shadow:0 0 0 3px rgba(14,116,144,.15)}
+.ghost{font:inherit;font-size:12px;border:1px solid var(--hair);background:transparent;border-radius:999px;padding:6px 13px;cursor:pointer;color:var(--ink3);transition:all .2s var(--qo)}
+.ghost:hover{color:var(--ink);background:#fff}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12px;color:var(--ink2);border:1px solid var(--hair);border-radius:999px;padding:6px 13px;background:rgba(255,255,255,.6)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.fc{perspective:1200px;min-height:170px}
+.fc-inner{position:relative;width:100%;height:100%;min-height:170px;transform-style:preserve-3d;transition:transform .55s var(--qo);cursor:pointer;border:none;background:none;padding:0;font:inherit;text-align:left;display:block}
+.fc.flip .fc-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;padding:18px;display:flex;flex-direction:column}
+.front{background:#fff;box-shadow:var(--shadow-sm)}
+.fc:hover .front{box-shadow:var(--shadow)}
+.front .cat{align-self:flex-start;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);background:rgba(14,116,144,.08);border-radius:999px;padding:2px 9px}
+.front .term{font-family:var(--serif);font-size:23px;font-weight:500;margin:auto 0;line-height:1.15;overflow-wrap:anywhere}
+.front .hint{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.back{background:var(--ink);color:#F4F1EA;transform:rotateY(180deg);box-shadow:var(--shadow-sm)}
+.back .term{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9BC7D4;margin-bottom:8px}
+.back .def{font-size:13.5px;line-height:1.55;margin:0;overflow-wrap:anywhere}
+.back .hint{margin-top:auto;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,241,234,.4);padding-top:8px}
+.fc-inner:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:16px}
+.enter{animation:rise .5s var(--qo) both}
+@keyframes rise{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.empty{border:1px dashed var(--hair);border-radius:16px;padding:30px;text-align:center;color:var(--ink3)}
+.pfoot{margin-top:28px;font-size:12px;color:var(--ink3);text-align:center}
+.pfoot a{color:var(--cyan)}
+@media (prefers-reduced-motion:reduce){
+  .fc-inner{transition:none}
+  .enter{animation:none}
+}
+</style>
+</head>
+<body>
+<div class="amb amb-grid"></div><div class="amb amb-glow1"></div><div class="amb amb-glow2"></div>
+<div class="shell">
+<nav class="sitenav" aria-label="Site"><a href="index.html">The Prompts</a><a href="portal.html">The Finished Portal</a><a class="on" href="vocab.html" aria-current="page">The Vocabulary</a></nav>
+
+<header class="hero">
+<p class="kicker">While Claude builds</p>
+<h1>Speak <em class="signature">Software</em></h1>
+<p class="sub">Tap any card to flip it. Every term in plain language, no jargon required. Quiz your neighbor.</p>
+</header>
+
+<div class="controls">
+  <div class="cgroup" id="cats"></div>
+  <div class="cgroup">
+    <input type="search" id="q" placeholder="Search terms" aria-label="Search terms">
+    <button class="ghost" id="shuffleBtn">Shuffle</button>
+    <button class="ghost" id="resetBtn">Flip all back</button>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<div class="grid" id="grid"></div>
+<p class="pfoot">Part of the Work Portal class. <a href="index.html">The prompts</a> &middot; <a href="portal.html">the finished portal</a>.</p>
+</div>
+
+<script>
+"use strict";
+const AI="AI & Agents",WEB="Web Basics",CODE="Code & Tools",SHIP="Shipping";
+const TERMS=[
+[AI,"Vibe coding","Building software by describing what you want in plain language and guiding an AI to generate, fix, and refine the code."],
+[AI,"Prompt","The instruction you type to tell the AI what to build, change, or explain."],
+[AI,"Prompt engineering","Writing those instructions clearly enough that the AI actually does the right thing."],
+[AI,"LLM","A large language model, the text-generating AI brain behind tools like Claude, GPT, or Gemini."],
+[AI,"Model","The specific AI system you choose, such as Claude Sonnet or GPT, each with different strengths."],
+[AI,"Token","The small text chunk AI uses to measure length, roughly three-quarters of a word."],
+[AI,"Context window","How much conversation and code the AI can hold in mind at once before it starts forgetting."],
+[AI,"Hallucination","When the AI confidently invents fake code, files, or APIs that look real but are not."],
+[AI,"AI agent","An AI given a goal plus tools so it can plan, take steps, and report back on its own, like Claude spawning a helper to edit files, run commands, or debug."],
+[AI,"Subagent","A helper agent the main coding agent starts for one focused job, which then reports back."],
+[AI,"Tools","Actions the agent is allowed to take, like reading files, running tests, or searching the web."],
+[AI,"MCP","Model Context Protocol, a plug-in system that lets an AI agent talk to extra tools and data sources."],
+[AI,"Sandbox","A locked-down workspace where an agent can run code without freely changing your whole computer."],
+[WEB,"Frontend","The part of a system users directly see and interact with, such as buttons, menus, and screens."],
+[WEB,"Backend","The hidden server-side part of an app that stores data, runs logic, and makes the visible screens actually work."],
+[WEB,"API","A set of rules that lets one program request data or actions from another, like a waiter carrying orders between your table and the kitchen."],
+[WEB,"Client","The app or browser on the user's side that talks to the server."],
+[WEB,"Server","A computer that runs your backend and answers requests from users or other programs."],
+[WEB,"Endpoint","One specific API address that does one job, such as /login or /payments."],
+[WEB,"HTML","The language that defines the structure of a web page, like headings, buttons, and text."],
+[WEB,"CSS","The language that styles how that page looks, including colors, layout, and fonts."],
+[WEB,"JavaScript","The main language of the web, used to make pages interactive."],
+[WEB,"JSON","A simple text format computers use to send structured data, like {\"name\":\"Ada\"}."],
+[WEB,"Component","A reusable UI building block, like a button, form, or navbar."],
+[WEB,"Full-stack","Working on both the visible frontend and the hidden backend."],
+[WEB,"Authentication","Checking that a user really is who they claim to be, usually with a login."],
+[WEB,"Database","Permanent storage for app data like users, posts, orders, and settings."],
+[CODE,"File","A named chunk of stored information on a computer, such as a code file, config, image, or document, that programs can read, write, and organize."],
+[CODE,"Function","A named set of instructions the program can run whenever you call it."],
+[CODE,"Variable","A labeled container that stores a value, such as a user's name or a count."],
+[CODE,"Syntax","The grammar of a programming language; one missing comma can stop the code from running."],
+[CODE,"Debugging","Finding and fixing why the code is not doing what you expected."],
+[CODE,"Refactor","Cleaning up code so it is easier to read and change, without changing what it does."],
+[CODE,"Test","Code that checks whether another piece of code behaves correctly."],
+[CODE,"Log","A running diary the program prints so you can see what happened and where it broke."],
+[CODE,"Dependencies","Ready-made code packages your project relies on, so you do not have to build every feature from scratch."],
+[CODE,"Library","A reusable bundle of code that solves one job, such as styling or date handling."],
+[CODE,"Framework","A pre-built starter structure, like React or Next.js, so you do not build everything from zero."],
+[CODE,"Package manager","A tool that installs and updates those libraries for you."],
+[CODE,"npm","The most common JavaScript package manager; npm install downloads your project's dependencies."],
+[CODE,"Runtime","The engine that actually executes your code, such as Node.js for JavaScript."],
+[CODE,"Environment variable","A secret or setting stored outside the code, like an API key in a .env file."],
+[CODE,"Terminal","The text command window where you run tools like Git, npm, or Claude Code."],
+[CODE,"IDE","Your coding app, such as Cursor or VS Code, where you edit files and chat with AI."],
+[CODE,"README","The project's welcome note that explains what the app is and how to run it."],
+[SHIP,"Repository","The project folder that holds all your code and its history, often called a repo."],
+[SHIP,"Git","The tool that tracks every change to your files so you can save, compare, and undo work."],
+[SHIP,"Commit","A saved snapshot of your code with a short note about what changed."],
+[SHIP,"Branch","A separate copy of the code for trying changes without touching the main version."],
+[SHIP,"Pull request","A request to review and merge your branch into the main project."],
+[SHIP,"Merge conflict","When two edits change the same lines and you must choose which version to keep."],
+[SHIP,"CI/CD","Automation that tests and deploys your app whenever you save new code."],
+[SHIP,"Localhost","Your own computer acting as a private test server, often at an address like localhost:3000."],
+[SHIP,"Deployment","Publishing the app to the internet so other people can use it."],
+[SHIP,"Production","The live version real users see, not the copy on your laptop."],
+[SHIP,"Staging","A dress-rehearsal copy of the app used to test changes before they go live."]
+];
+const $=s=>document.querySelector(s);
+let view={cat:null,q:""};
+let order=TERMS.map((_,i)=>i);
+function esc(x){const d=document.createElement("div");d.textContent=x;return d.innerHTML}
+function render(){
+  const g=$("#grid");g.innerHTML="";
+  let shown=0;
+  order.forEach((ti,ix)=>{
+    const[cat,term,def]=TERMS[ti];
+    if(view.cat&&cat!==view.cat)return;
+    if(view.q&&!(term+" "+def).toLowerCase().includes(view.q.toLowerCase()))return;
+    shown++;
+    const d=document.createElement("div");d.className="fc";
+    if(!render.done){d.classList.add("enter");d.style.animationDelay=Math.min(ix*40,600)+"ms"}
+    d.innerHTML='<button class="fc-inner" aria-expanded="false" aria-label="'+esc(term)+', tap to reveal the meaning">'
+     +'<span class="face front"><span class="cat">'+esc(cat)+'</span><span class="term">'+esc(term)+'</span><span class="hint">Tap to flip</span></span>'
+     +'<span class="face back"><span class="term">'+esc(term)+'</span><p class="def">'+esc(def)+'</p><span class="hint">Tap to flip back</span></span>'
+     +'</button>';
+    d.querySelector(".fc-inner").addEventListener("click",()=>{
+      d.classList.toggle("flip");
+      d.querySelector(".fc-inner").setAttribute("aria-expanded",d.classList.contains("flip"));
+      updateCount()});
+    g.appendChild(d)});
+  if(!shown)g.innerHTML='<div class="empty">Nothing matches. Clear the search or pick another group.</div>';
+  render.done=true;updateCount()}
+function updateCount(){
+  const flipped=document.querySelectorAll(".fc.flip").length;
+  const total=document.querySelectorAll(".fc").length;
+  $("#count").textContent=flipped+" / "+total+" flipped"}
+(function(){const cats=[null,AI,WEB,CODE,SHIP];const w=$("#cats");
+  cats.forEach(c=>{const b=document.createElement("button");b.className="fchip";
+    b.textContent=c||"All";b.setAttribute("aria-pressed",String(view.cat===c));
+    b.onclick=()=>{view.cat=c;document.querySelectorAll("#cats .fchip").forEach((x,i)=>x.setAttribute("aria-pressed",String(cats[i]===c)));render()};
+    w.appendChild(b)})})();
+let qtm;$("#q").addEventListener("input",e=>{clearTimeout(qtm);qtm=setTimeout(()=>{view.q=e.target.value;render()},150)});
+$("#shuffleBtn").onclick=()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}render()};
+$("#resetBtn").onclick=()=>{document.querySelectorAll(".fc.flip").forEach(f=>{f.classList.remove("flip");f.querySelector(".fc-inner").setAttribute("aria-expanded","false")});updateCount()};
+render();
+</script>
+</body>
+</html>
