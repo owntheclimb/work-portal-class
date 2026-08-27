@@ -212,7 +212,7 @@ select.sortsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px
 
 <header class="mast">
   <section class="hero enter" aria-label="Overview">
-    <p class="kicker">Wednesday briefing</p>
+    <p class="kicker" id="kick">Briefing</p>
     <h1>My <em class="signature">Portal</em></h1>
     <div class="hero-row">
       <div class="hero-num"><span id="heroN">0</span><small>open items</small></div>
@@ -378,6 +378,7 @@ function tick(){const n=new Date();
   const hh=n.getHours(),mm=String(n.getMinutes()).padStart(2,"0"),ss=String(n.getSeconds()).padStart(2,"0");
   $("#clock").innerHTML=((hh%12)||12)+":"+mm+'<span class="sec">'+ss+"</span>";
   $("#sceneDate").textContent=n.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
+  document.getElementById("kick").textContent=n.toLocaleDateString(undefined,{weekday:"long"})+" briefing";
   const sc=$("#scene");sc.className="scene enter "+(hh<7?"dawn":hh<11?"dawn":hh<17?"day":hh<20?"dusk":"night");
   const frac=Math.min(1,Math.max(0,(hh+n.getMinutes()/60-8)/10));
   $("#dayArc").style.strokeDashoffset=String(164*(1-frac));
