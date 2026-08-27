@@ -133,6 +133,8 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 .chip{font-family:var(--mono);font-size:10.5px;font-variant-numeric:tabular-nums;border-radius:var(--r-pill);padding:4px 10px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.25)}
 .chip b{font-weight:600}
 .chip.warn{background:rgba(180,83,9,.32)}
+.wxbtn{position:absolute;right:12px;bottom:12px;z-index:3;font:inherit;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:5px 11px;cursor:pointer;transition:background .2s cubic-bezier(0.25,1,0.5,1)}
+.wxbtn:hover{background:rgba(255,255,255,.3)}
 /* workspace */
 .work{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;align-items:start}
 @media(max-width:1279px){.work{grid-template-columns:1fr}.advisor{order:-1}}
@@ -441,6 +443,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <span class="chip warn" id="chipLocal" hidden>0 local changes</span>
       </div>
     </div>
+    <button class="wxbtn" id="wxBtn" title="Preview other skies">Preview sky</button>
   </aside>
 </header>
 
@@ -579,10 +582,11 @@ const REDUCED=matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* ---------- Newark time, sky state, weather ---------- */
 function newarkHour(){try{return Number(new Intl.DateTimeFormat("en-US",{hour:"numeric",hour12:false,timeZone:"America/New_York"}).format(new Date()))}catch(e){return new Date().getHours()}}
-let wx={code:0,ok:false};
+let wx={code:0,ok:false};let wxReal=wx;let PREVIEW=null;
 const SKYQ=new URLSearchParams(location.search).get("sky");
 const SKYMAP={clear:0,cloudy:3,rain:63,snow:73};
 function skyState(){
+  if(PREVIEW)return PREVIEW;
   if(SKYQ){const p=SKYQ.split("-");if(["dawn","day","dusk","night"].includes(p[0]))return p[0]}const h=newarkHour();
   if(h>=6&&h<9)return"dawn";if(h>=9&&h<17)return"day";if(h>=17&&h<20)return"dusk";return"night"}
 function paintSky(){const st=skyState();const sc=$("#scene");
@@ -609,8 +613,8 @@ const WXWORD={0:"clear",1:"mostly clear",2:"partly cloudy",3:"overcast",45:"fogg
   const ctl=new AbortController();setTimeout(()=>ctl.abort(),4500);
   const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.7357&longitude=-74.1724&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York",{signal:ctl.signal});
   const j=await r.json();
-  if(SKYQ){const p=SKYQ.split("-");if(p[1] in SKYMAP){wx={code:SKYMAP[p[1]],ok:true};paintSky()}}
-  else if(j&&j.current){wx={code:j.current.weather_code,ok:true};
+  if(SKYQ){const p=SKYQ.split("-");if(p[1] in SKYMAP){wx={code:SKYMAP[p[1]],ok:true};wxReal=wx;paintSky()}}
+  else if(j&&j.current){wx={code:j.current.weather_code,ok:true};wxReal=wx;
     const w=$("#wline");w.hidden=false;
     w.innerHTML="<b>"+Math.round(j.current.temperature_2m)+"&deg;F</b> and "+(WXWORD[wx.code]||"quiet")+" right now";
     paintSky()}
@@ -903,6 +907,14 @@ addEventListener("keydown",e=>{
   if(e.key==="d"&&document.activeElement.classList&&document.activeElement.classList.contains("card")){
     const b=document.activeElement.querySelector(".defer");b&&b.click()}});
 
+(function(){const MODES=[["day",0,"Clear"],["day",3,"Cloudy"],["day",63,"Rain"],["day",73,"Snow"],["night",0,"Night"],["night",3,"Night clouds"]];
+  let idx=-1,tm=null;const btn=document.getElementById("wxBtn");
+  function endPreview(){PREVIEW=null;wx=wxReal;idx=-1;btn.textContent="Preview sky";paintSky()}
+  btn.addEventListener("click",()=>{idx++;
+    if(idx>=MODES.length){clearTimeout(tm);endPreview();return}
+    PREVIEW=MODES[idx][0];wx={code:MODES[idx][1],ok:true};
+    btn.textContent=MODES[idx][2]+" (previewing)";paintSky();
+    clearTimeout(tm);tm=setTimeout(endPreview,10000)});})();
 renderAll();
 if(!storageOK)toast("Browser storage is off. Edits last this session only, copy before you close.");
 </script>
