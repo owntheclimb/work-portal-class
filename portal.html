@@ -271,8 +271,9 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <circle cx="300" cy="64" r="17" fill="#FFF2C2"/>
       </g>
       <g id="moonG" style="display:none">
-        <circle cx="316" cy="58" r="46" fill="url(#moonHalo)"/>
-        <path d="M316 34 a24 24 0 1 0 0 48 a19 19 0 1 1 0 -48z" fill="#F3E9B8"/>
+        <mask id="crescent"><circle cx="298" cy="60" r="22" fill="#fff"/><circle cx="309" cy="53" r="19" fill="#000"/></mask>
+        <circle cx="295" cy="62" r="36" fill="url(#moonHalo)"/>
+        <circle cx="298" cy="60" r="22" fill="#F3E9B8" mask="url(#crescent)"/>
       </g>
       <g id="rain" style="display:none">
         <line class="raindrop" x1="60" y1="40" x2="55" y2="56"/><line class="raindrop" x1="120" y1="20" x2="115" y2="36"/>
