@@ -111,9 +111,12 @@ body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-size:
 #sunWrap{transition:transform 1.2s linear}
 .dawn #sunWrap,.dusk #sunWrap{transform:translateY(32px)}
 .night .driftA,.night .driftB,.night .driftC{opacity:.55}
-.raindrop{stroke:rgba(255,255,255,.55);stroke-width:1.6;stroke-linecap:round;animation:rainfall 1s linear infinite}
-.raindrop:nth-child(2n){animation-delay:-.5s}.raindrop:nth-child(3n){animation-delay:-.25s}.raindrop:nth-child(4n){animation-delay:-.75s}
-@keyframes rainfall{from{transform:translateY(-30px)}to{transform:translateY(230px)}}
+.raindrop{fill:rgba(255,255,255,.34);animation:rainfall 4.8s linear infinite}
+.raindrop:nth-child(2n){animation-delay:-2.4s;animation-duration:5.6s}
+.raindrop:nth-child(3n){animation-delay:-1.2s;animation-duration:4.2s;fill:rgba(255,255,255,.26)}
+.raindrop:nth-child(4n){animation-delay:-3.6s;animation-duration:5.1s}
+.raindrop:nth-child(5n){animation-delay:-.8s;fill:rgba(255,255,255,.42)}
+@keyframes rainfall{from{transform:translateY(-16px)}to{transform:translateY(252px)}}
 .flake{fill:rgba(255,255,255,.9);animation:snowfall 5.5s linear infinite}
 .flake:nth-child(2n){animation-delay:-2.7s}.flake:nth-child(3n){animation-delay:-4.1s}
 @keyframes snowfall{from{transform:translateY(-20px)}to{transform:translateY(240px)}}}
@@ -371,13 +374,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         </g>
       </g>
       <g id="moonBloom" style="display:none"><circle cx="296" cy="62" r="42" fill="url(#moonHalo)"/></g>
-      <g id="rain" style="display:none">
-        <line class="raindrop" x1="60" y1="40" x2="55" y2="56"/><line class="raindrop" x1="120" y1="20" x2="115" y2="36"/>
-        <line class="raindrop" x1="180" y1="50" x2="175" y2="66"/><line class="raindrop" x1="240" y1="26" x2="235" y2="42"/>
-        <line class="raindrop" x1="300" y1="44" x2="295" y2="60"/><line class="raindrop" x1="350" y1="22" x2="345" y2="38"/>
-        <line class="raindrop" x1="90" y1="70" x2="85" y2="86"/><line class="raindrop" x1="270" y1="66" x2="265" y2="82"/>
-        <line class="raindrop" x1="150" y1="84" x2="145" y2="100"/><line class="raindrop" x1="330" y1="78" x2="325" y2="94"/>
-      </g>
+      <g id="rain" style="display:none" filter="url(#blur2)"><circle class="raindrop" cx="22" cy="8" r="1.1"/><circle class="raindrop" cx="48" cy="52" r="0.9"/><circle class="raindrop" cx="75" cy="24" r="1.3"/><circle class="raindrop" cx="101" cy="70" r="1.0"/><circle class="raindrop" cx="128" cy="12" r="1.1"/><circle class="raindrop" cx="152" cy="44" r="0.9"/><circle class="raindrop" cx="181" cy="62" r="1.3"/><circle class="raindrop" cx="206" cy="20" r="1.0"/><circle class="raindrop" cx="233" cy="36" r="1.1"/><circle class="raindrop" cx="258" cy="58" r="0.9"/><circle class="raindrop" cx="284" cy="16" r="1.3"/><circle class="raindrop" cx="309" cy="48" r="1.0"/><circle class="raindrop" cx="336" cy="28" r="1.1"/><circle class="raindrop" cx="361" cy="66" r="0.9"/><circle class="raindrop" cx="388" cy="40" r="1.3"/><circle class="raindrop" cx="63" cy="80" r="1.0"/><circle class="raindrop" cx="140" cy="86" r="1.1"/><circle class="raindrop" cx="220" cy="76" r="0.9"/><circle class="raindrop" cx="298" cy="90" r="1.3"/><circle class="raindrop" cx="372" cy="60" r="1.0"/></g>
       <g id="snow" style="display:none">
         <circle class="flake" cx="70" cy="30" r="2.2"/><circle class="flake" cx="150" cy="16" r="1.8"/>
         <circle class="flake" cx="230" cy="36" r="2.4"/><circle class="flake" cx="310" cy="20" r="1.7"/>
