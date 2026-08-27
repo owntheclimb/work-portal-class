@@ -304,6 +304,7 @@ select.qsel{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;bo
         <radialGradient id="sunCoreG" cx="40%" cy="36%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="45%" stop-color="#FFF3BE"/><stop offset="100%" stop-color="#FFD35E"/></radialGradient>
         <radialGradient id="cloudBody" cx="42%" cy="28%"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="65%" stop-color="#F2F7FD"/><stop offset="100%" stop-color="#DDE9F6"/></radialGradient>
         <radialGradient id="cloudDark"><stop offset="0%" stop-color="#B9CFE8"/><stop offset="100%" stop-color="#A9C2E0"/></radialGradient>
+        <radialGradient id="starG"><stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/><stop offset="35%" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
         <radialGradient id="moonHalo"><stop offset="0%" stop-color="#F8F3D9" stop-opacity=".65"/><stop offset="50%" stop-color="#F8F3D9" stop-opacity=".16"/><stop offset="100%" stop-color="#F8F3D9" stop-opacity="0"/></radialGradient>
         <radialGradient id="moonBody" cx="38%" cy="34%"><stop offset="0%" stop-color="#FCF6DC"/><stop offset="70%" stop-color="#EFE2AE"/><stop offset="100%" stop-color="#D9C689"/></radialGradient>
         <linearGradient id="cloudShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFFFFF"/><stop offset="100%" stop-color="#CFE0F1"/></linearGradient>
@@ -639,17 +640,18 @@ setInterval(tick,1000);tick();
   for(let i=0;i<46;i++){const c=document.createElementNS(NS,"circle");
     c.setAttribute("cx",(6+Math.random()*388).toFixed(1));
     c.setAttribute("cy",(6+Math.random()*150).toFixed(1));
-    c.setAttribute("r",((Math.random()<.12?1.4:.5)+Math.random()*.9).toFixed(2));
-    c.setAttribute("fill",["#FFFFFF","#FFF4D6","#DDE8FF"][Math.floor(Math.random()*3)]);
+    const bright=Math.random()<.1;
+    c.setAttribute("r",bright?(1.8+Math.random()*.9).toFixed(2):(0.25+Math.random()*0.55).toFixed(2));
+    c.setAttribute("fill",bright?"url(#starG)":["#FFFFFF","#FFF4D6","#DDE8FF"][Math.floor(Math.random()*3)]);
     c.setAttribute("class","tw");
     c.style.animationDuration=(2.4+Math.random()*3.8).toFixed(2)+"s";
     c.style.animationDelay=(-Math.random()*6).toFixed(2)+"s";
     c.style.opacity=(.35+Math.random()*.65).toFixed(2);
     g.appendChild(c)}
-  for(let i=0;i<48;i++){const c=document.createElementNS(NS,"circle");
+  for(let i=0;i<72;i++){const c=document.createElementNS(NS,"circle");
     c.setAttribute("cx",(4+Math.random()*392).toFixed(1));
     c.setAttribute("cy",(4+Math.random()*160).toFixed(1));
-    c.setAttribute("r",(0.25+Math.random()*0.4).toFixed(2));
+    c.setAttribute("r",(0.18+Math.random()*0.34).toFixed(2));
     c.setAttribute("fill","#FFFFFF");c.setAttribute("class","tw");
     c.style.animationDuration=(3+Math.random()*4).toFixed(2)+"s";
     c.style.animationDelay=(-Math.random()*7).toFixed(2)+"s";
