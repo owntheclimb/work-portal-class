@@ -584,7 +584,10 @@ const REDUCED=matchMedia("(prefers-reduced-motion: reduce)").matches;
 /* ---------- Newark time, sky state, weather ---------- */
 function newarkHour(){try{return Number(new Intl.DateTimeFormat("en-US",{hour:"numeric",hour12:false,timeZone:"America/New_York"}).format(new Date()))}catch(e){return new Date().getHours()}}
 let wx={code:0,ok:false};
-function skyState(){const h=newarkHour();
+const SKYQ=new URLSearchParams(location.search).get("sky");
+const SKYMAP={clear:0,cloudy:3,rain:63,snow:73};
+function skyState(){
+  if(SKYQ){const p=SKYQ.split("-");if(["dawn","day","dusk","night"].includes(p[0]))return p[0]}const h=newarkHour();
   if(h>=6&&h<9)return"dawn";if(h>=9&&h<17)return"day";if(h>=17&&h<20)return"dusk";return"night"}
 function paintSky(){const st=skyState();const sc=$("#scene");
   sc.classList.remove("dawn","day","dusk","night");sc.classList.add(st);
@@ -608,7 +611,8 @@ const WXWORD={0:"clear",1:"mostly clear",2:"partly cloudy",3:"overcast",45:"fogg
   const ctl=new AbortController();setTimeout(()=>ctl.abort(),4500);
   const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude=40.7357&longitude=-74.1724&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=America%2FNew_York",{signal:ctl.signal});
   const j=await r.json();
-  if(j&&j.current){wx={code:j.current.weather_code,ok:true};
+  if(SKYQ){const p=SKYQ.split("-");if(p[1] in SKYMAP){wx={code:SKYMAP[p[1]],ok:true};paintSky()}}
+  else if(j&&j.current){wx={code:j.current.weather_code,ok:true};
     const w=$("#wline");w.hidden=false;
     w.innerHTML="<b>"+Math.round(j.current.temperature_2m)+"&deg;F</b> and "+(WXWORD[wx.code]||"quiet")+" right now";
     paintSky()}
